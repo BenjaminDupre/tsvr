@@ -1,9 +1,6 @@
 # TSVR 
 ## Preliminary Results :hatching_chick:
-
 This repository contains preliminary results of the study called "Behavioural changes induced by tactile stimulation in VR". 
-
-![diagram](proposal2.png)
 
 **The expirience is built in:**
 * Virtual Reality using Unity. 
@@ -13,6 +10,9 @@ This repository contains preliminary results of the study called "Behavioural ch
 On each trial, first, the participants had to memorize the correct placement position on a 18 position board. Then, the ball would appear allocated randomly on either the left or the right hand and they had to place the ball in the correct position as fast as possible. 
 
 The study consisted of 3 blocks of 36 trials, mounting to a goal of 108 observation per participants. 
+![diagram](proposal2.png)
+
+
 
 **Hypothesis measurments** 
 
