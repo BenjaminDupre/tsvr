@@ -3,7 +3,7 @@
 
 This repository contains preliminary results of the study called "Behavioural changes induced by tactile stimulation in VR". 
 
-![GitHub Logo](/images/logo.png)
+![diagram](proposal2.png)
 
 **The expirience is built in:**
     * Virtual Reality using Unity. 
@@ -26,8 +26,8 @@ The study consisted of 3 blocks of 36 trials, mounting to a goal of 108 observat
 
 **In the repository you find:**
 
-•	Readme file
-•	Folder with Data Examples
-•	Folder Matlab Files containing the data organization, outlier removal and subsetting and ECG signal processing.
-•   Folder with R files containing the ANOVAS and Graphs.
+* Readme file
+* Folder with Data Examples
+* Folder Matlab Files containing the data organization, outlier removal and subsetting and ECG signal processing.
+* Folder with R files containing the ANOVAS and Graphs.
 
