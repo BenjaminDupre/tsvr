@@ -22,11 +22,19 @@ The study consisted of 3 blocks of 36 trials, mounting to a goal of 108 observat
    
     * 1.b Main effect of stimulation (congruent, incongruent, absent) on ball placement time.The research was carried out inserting to the participant into a room in which he had to 
    
-
 **In the repository you will find:**
 
    * Readme file
    * Folder with Data Examples
-   * Folder Matlab Files containing the data organization, outlier removal and subsetting and ECG signal processing.
+   * Folder with Matlab Files containing the data organization, outlier removal, subsetting and ECG signal processing.
+      * all_participants.m (goes over all participants and builds a structure with all the data)
+         * load_everything.m (how to load the files)
+         * building_response_time.m (builds response time structure)
+            * feedbacktype_check.m(checks number of stimuli per participant)
+      * preparing_for_R.m (this file rescues the structured data, saves it as s csv file to later use in R and continues to add the mistakes)
+      * HEART.m   
    * Folder with R files containing the ANOVAS and Graphs.
+      * anovas.R
+   
+
 
