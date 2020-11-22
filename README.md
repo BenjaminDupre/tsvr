@@ -6,9 +6,9 @@ This repository contains preliminary results of the study called "Behavioural ch
 ![diagram](proposal2.png)
 
 **The expirience is built in:**
-    * Virtual Reality using Unity. 
-    * The Heart Rate data is colected using Arduino Uno and a SparkFun Single Lead Heart Rate Monitor - AD8232. 
-    * The VR expirience is presented and tracked using a HTC Vive headset with two lighthouses and Haptic Data Globes. 
+* Virtual Reality using Unity. 
+* The Heart Rate data is colected using Arduino Uno and a SparkFun Single Lead Heart Rate Monitor - AD8232. 
+* The VR expirience is presented and tracked using a HTC Vive headset with two lighthouses and Haptic Data Globes. 
 
 On each trial, first, the participants had to memorize the correct placement position on a 18 position board. Then, the ball would appear allocated randomly on either the left or the right hand and they had to place the ball in the correct position as fast as possible. 
 
@@ -26,8 +26,8 @@ The study consisted of 3 blocks of 36 trials, mounting to a goal of 108 observat
 
 **In the repository you find:**
 
-* Readme file
-* Folder with Data Examples
-* Folder Matlab Files containing the data organization, outlier removal and subsetting and ECG signal processing.
-* Folder with R files containing the ANOVAS and Graphs.
+   * Readme file
+   * Folder with Data Examples
+   * Folder Matlab Files containing the data organization, outlier removal and subsetting and ECG signal processing.
+   * Folder with R files containing the ANOVAS and Graphs.
 
