@@ -10,9 +10,8 @@ This repository contains preliminary results of the study called "Behavioural ch
 On each trial, first, the participants had to memorize the correct placement position on a 18 position board. Then, the ball would appear allocated randomly on either the left or the right hand and they had to place the ball in the correct position as fast as possible. 
 
 The study consisted of 3 blocks of 36 trials, mounting to a goal of 108 observation per participants. 
+
 ![diagram](proposal2.png)
-
-
 
 **Hypothesis measurments** 
 
@@ -24,7 +23,7 @@ The study consisted of 3 blocks of 36 trials, mounting to a goal of 108 observat
     * 1.b Main effect of stimulation (congruent, incongruent, absent) on ball placement time.The research was carried out inserting to the participant into a room in which he had to 
    
 
-**In the repository you find:**
+**In the repository you will find:**
 
    * Readme file
    * Folder with Data Examples
