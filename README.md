@@ -1,5 +1,5 @@
 # TSVR 
-## Preliminary Results :hatching_chick:
+## Preliminary Results :heartpulse:
 This repository contains preliminary results of the study called "Behavioural changes induced by tactile stimulation in VR". 
 
 **The expirience is built in:**
