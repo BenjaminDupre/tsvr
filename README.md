@@ -8,12 +8,19 @@ This repository contains preliminary results of the study called "Behavioural ch
 * The VR expirience displayed and tracked using a HTC Vive headset, two lighthouses and Haptic Data Globes. 
 
 On each trial, the participants had to memorize the correct placement position on a 18 position board. Then, the ball would appear allocated randomly on either the left or the right hand and finally they had to place the ball in the correct position as fast as possible. 
-
-The study consisted of 3 blocks of 36 trials, mounting to a goal of 108 observation per participants. 
+Consequently, we manipulate 3 things:
+1-The location of the target 
+2-The location of the ball in the hand (right hand, left hand)
+3-The location of the haptic feedback (congruent, incongruent, absent)
+ 
+The study consisted of 3 blocks of 36 trials, mounting to a goal of 108 observation per participants.  It is important note that each hand experienced equal number of conditions (randomized) throughout the 108 trials:
+36 congruent condition (12 left congruent - 12 right congruent)
+36 incongruent condition(12 left incongruent - 12 rightincongruent)
+36 absent condition (12 left absent - 12 right absent)
 
 ![diagram](proposal2.png)
 
-**Hypothesis measurments** 
+**Hypothesis measurements** 
 
 1. The effect of haptic stimulation:
 
