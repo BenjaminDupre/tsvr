@@ -4,7 +4,7 @@ Hi:
 *for a general overview of results, please download zip of the repository, open "R files", open presentation.Rmd file with R Studio program and knit it for a Html page*
 
 ## Preliminary Results :heartpulse:
-This repository contains preliminary results of the study called "Behavioural changes induced by tactile stimulation in VR". 
+This repository contains code & preliminary results of the study called "Behavioural changes induced by tactile stimulation in VR". 
 
 **The expirience is built in:**
 * Virtual Reality using Unity. 
