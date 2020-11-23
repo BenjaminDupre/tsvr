@@ -64,7 +64,7 @@ tsvr2 <- read.table('alles_hr/behavioral_a.csv',header=T,sep = ',',dec = '.')
 tsvr2 <- tsvr2[!(tsvr2$ptcp== 2 |tsvr2$ptcp== 3 | tsvr2$ptcp == 13 | tsvr2$ptcp == 11),]
 tsvr2$stimulus <- factor(tsvr2$stimulus, levels = c(3, 2, 1))
 tsvr2$stimulus <-revalue(tsvr2$stimulus, c("3"="base", "2"="Incongruent", "1"="Congruent"))
-#tsvr2<- na.omit(tsvr2)
+tsvr2<- na.omit(tsvr2)
 #$stimulus <- factor(tsvr$stimulus, levels = c(3, 2, 1))
 #tsv2r$stimulus <-revalue(tsvr$stimulus, c("3"="base", "2"="Incongruent", "1"="Congruent"))
 output_anova = ezANOVA(data = tsvr2,
