@@ -1,24 +1,27 @@
 ---
 title: "TSVR"
-author: "Benjamin Dupre"
+author: "Zeynep Akbal & Benjamín Dupré"
 date: "11/22/2020"
 output: html_document
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+library(knitr)
+opts_knit$set(eval.after = 'fig.cap')
 ########## Loading Domains
 library(ez) # for anovas
 library(ggplot2) # in every graph
 library(plyr) # for building the rt graph
 library(lme4) # to test difference in accuracy
 library(lmerTest) # to test Now approx p-val w/Kenward-Roger’s approximations
-library(gridExtra) # its used to mixed the two graphics together. 
+library(gridBase) # its used to mixed the graphics together base and ggplot
+library(grid) # its used to mixed the graphics together base and ggplot
 ########## Defining Working Folder
 setwd('/Users/calypso/Dropbox/My Mac (glaroam2-185-117.wireless.gla.ac.uk)/Documents/Research MaxPlank/P1_propioception/R_tsvr_presentation/data/')
 ##########Loading File
- tsvr <- read.table('responsetime.csv',header=T,sep = ',',dec = '.') # this is the file saved from the matlab file 
-
+tsvr <- read.table('responsetime.csv',header=T,sep = ',',dec = '.') # this is the file saved from the matlab file 
+tsvr2 <- read.table('behavioral_a.csv', header=T,sep = ',',dec = '.')
 ########## Running ANOVA for RT
 tsvr$stimulus <- factor(tsvr$stimulus, levels = c(3, 2, 1))
 tsvr$stimulus <-revalue(tsvr$stimulus, c("3"="base", "2"="Incongruent", "1"="Congruent"))
@@ -35,17 +38,18 @@ data_summary <- function(data, varname, grps){
   data_sum <- rename(data_sum, c("mean" = varname))
   return(data_sum)
 }
+
 ```
 
 #### 1. File description
 
-The file to analyse includes the number of the participant (ptcp), the 'set' refers to the number of the block, the level ('lvl') is the number assign to the trial presented in each block. 
+  The file to analyse includes the number of the participant (ptcp), the 'set' refers to the number of the block, the level ('lvl') is the number assign to the trial presented in each block. 
 
-The varaible 'start' correponds to the moment the ball placed in the hand of the participant and is shown in row number. Likewise, 'end' correponds to the explosion of the board and is also shown in row number. 
+  The varaible 'start' correponds to the moment the ball placed in the hand of the participant and is shown in row number. Likewise, 'end' correponds to the explosion of the board and is also shown in row number. 
 
-The variable 'accuracry' takes value 1 when there is a mistake 0 otherwise.
+  The variable 'accuracry' takes value 1 when there is a mistake 0 otherwise.
 
-Finally, 'diff' refers to the time difference between 'start' and 'end' expresed in seconds and 'stimulus' signal wether where the participant felt the vibration on the same hand or if they did not received any vibration.   
+  Finally, 'diff' refers to the time difference between 'start' and 'end' expresed in seconds and 'stimulus' signal wether where the participant felt the vibration on the same hand or if they did not received any vibration.   
 
 ```{r tsvr, echo=FALSE}
 summary(tsvr)
@@ -53,13 +57,7 @@ summary(tsvr)
 
 #### 2. Testing time difference between conditions withing subjects (base, congruent, incongruent).
 
-a.- Its important to have in mind that reponse time is not a normally distributed variable, nontheless ANOVA can handle non normality. 
-```{r , echo=FALSE, fig.align = "center"}
-qqnorm(tsvr$diff, pch = 1, frame = FALSE)
-qqline(tsvr$diff, col = "steelblue", lwd = 2)
-```
-
-b.- We run an ANOVA to test for the difference (this code is based on Esra )
+  a.- We run an ANOVA to test for difference between groups (this code is based on Esra ):
 
 ```{r, echo=TRUE, warning=FALSE}
 output_anova = ezANOVA(data = tsvr,
@@ -72,27 +70,80 @@ output_anova = ezANOVA(data = tsvr,
 print(output_anova)
 ```
 
-c.- We show the resultsof the graphic portraing the difference.
-```{r, echo=FALSE, fig.align = "center"}
+  b.- Its important to have in mind that reponse time is not a normally distributed variable, nontheless ANOVA can handle non-normality and we show the resultsof the graphic portraing the difference. The simple mean difference is mainly between the only visual condition (Base) and the incongruent visual haptic condition (53 milliseconds). The effect size is 0.6% 
+
+```{r, echo=FALSE, fig.align = "center", fig.cap = cap}
 df <- data_summary(tsvr, varname="diff", grps = "stimulus")
 rt <- ggplot(df, aes(x = stimulus, y = diff,
                      ymin=diff-0.05*sd, ymax=diff+0.05*sd))
 rt <- rt + geom_pointrange() +
   labs(title ="Response Time per Condition", x = "visual-heptic", y = "(in seconds)")+
-  theme(panel.grid.minor = element_line(size = 0.25, linetype = 'solid', colour = "grey") ,
-        panel.grid.minor.x = element_blank())
-rt
+  #theme(panel.grid.minor = element_line(size = 0.25, linetype = 'solid', colour = "grey") ,
+   #     panel.grid.minor.x = element_blank())
+  theme_bw()
+cap<- "Quantile-Quantile plot visually showing that Response Time distribution is not normal. The second graphic shows the mean for every participant reponse time."
+par(mfrow=c(1, 2))
+qqnorm(tsvr$diff, pch = 1, frame = FALSE, main = "Q-Q plot for response time")
+qqline(tsvr$diff, col = "steelblue", lwd = 2)
+## the last one is the current plot
+plot.new()              ## suggested by @Josh
+vps <- baseViewports()
+pushViewport(vps$figure) ##   I am in the space of the autocorrelation plot
+vp1 <-plotViewport(c(1.8,1,0,1)) 
+print(rt,vp = vp1) 
 ```
 
 #### 3. Testing for accuracy difference between conditions withing subjects (base, congruent, incongruent).
 
-a.- Because the dependand varaible is binary we run linear mixed effect model using the participants as randome effect varaibles. 
-```{r , echo=TRUE, fig.align = "center"}
+  a.- Because the dependand varaible is binary we run linear mixed effect model using the participants as randome effect variables. The model shows no significant difference between the mistake rate between categories.  
+  
+```{r , echo=FALSE,, fig.align = "center"}
+########## ANOVA for ACCURACY
 fm1<- lmer(accuracy ~ stimulus + (1 | ptcp) , data= tsvr)
 summary(fm1)
+
+df2 <- data_summary(tsvr, varname="accuracy", grps = "stimulus")
+incc <- ggplot(df2, aes(x = stimulus, y = accuracy,
+                     ymin=accuracy-0.05*sd, ymax=accuracy+0.05*sd))
+incc <- incc + geom_pointrange() +
+  labs(title ="Innacuracy per Condition", x = "Visual - Heptic Stimuli ", y = "Proportion of mistakes") +
+  #theme(panel.grid.minor = element_line(size = 0.25, linetype = 'solid', colour = "grey") ,
+  #        panel.grid.minor.x = element_blank())
+  theme_bw()
+incc
 ```
 
+#### 4. Testing for IBI difference between conditions withing subjects (base, congruent, incongruent).
+```{r, include=FALSE}
+setwd('/Users/calypso/Dropbox/My Mac (glaroam2-185-117.wireless.gla.ac.uk)/Documents/Research MaxPlank/P1_propioception/R_tsvr_presentation/data/')
+tsvr2 <- read.table('behavioral_a.csv', header=T,sep = ',',dec = '.')
+tsvr2 <- tsvr2[!(tsvr2$ptcp== 2 |tsvr2$ptcp== 3 | tsvr2$ptcp == 13 | tsvr2$ptcp == 11),]
+tsvr2$stimulus <- factor(tsvr2$stimulus, levels = c(3, 2, 1))
+tsvr2$stimulus <-revalue(tsvr2$stimulus, c("3"="base", "2"="Incongruent", "1"="Congruent"))
+tsvr2<- na.omit(tsvr2)
+```
 
+ a.- There is no significant diference between inter beat intervals. I still need to think more about whether this is the correcto apporach or not. Also need to clean up data more thoroughly. 
+
+```{r, echo=FALSE, warning=FALSE}
+output_anova2 = ezANOVA(data = tsvr2,
+                       dv = IBI,
+                       wid = ptcp,
+                       within = .(stimulus),
+                       within_covariates = set,
+                       detailed = T)
+print(output_anova2)
+
+df2 <- data_summary(tsvr2, varname="IBI", grps = "stimulus")
+ibig <- ggplot(df2, aes(x = stimulus, y = IBI,
+                        ymin=IBI-0.05*sd, ymax=IBI+0.05*sd))
+ibig <- ibig + geom_pointrange() +
+  labs(title ="IBI per Condition", x = "Visual - Heptic Stimuli ", y = "Fraction of a second (s)") +
+  #theme(panel.grid.minor = element_line(size = 0.25, linetype = 'solid', colour = "grey") ,
+  #     panel.grid.minor.x = element_blank())
+  theme_bw()
+ibig
+```
 
 
 
