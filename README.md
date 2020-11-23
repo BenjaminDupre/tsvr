@@ -1,6 +1,6 @@
 # TSVR 
 
-*for a general overview of results download R folder and run the presentation.Rmd file.
+*for a general overview of results download "R files" and run the presentation.Rmd file.
 
 ## Preliminary Results :heartpulse:
 This repository contains preliminary results of the study called "Behavioural changes induced by tactile stimulation in VR". 
