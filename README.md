@@ -1,4 +1,7 @@
 # TSVR 
+
+*for a general overview of results download R folder and run the presentation.Rmd file.
+
 ## Preliminary Results :heartpulse:
 This repository contains preliminary results of the study called "Behavioural changes induced by tactile stimulation in VR". 
 
@@ -39,9 +42,12 @@ The study consisted of 3 blocks of 36 trials, mounting to a goal of 108 observat
          * building_response_time.m (builds response time structure)
             * feedbacktype_check.m(checks number of stimuli per participant)
       * preparing_for_R.m (this file rescues the structured data, saves it as s csv file to later use in R and continues to add the mistakes)
-      * HEART.m   
+      * HEART.m (adds IBI data into the file to be analyzed by R)
    * Folder with R files containing the ANOVAS and Graphs.
       * anovas.R
+      * responsetime.csv (actually it holds response time and accuracy data that work with the anova file.)
+      * presentation.Rmd (it presents the code in anovas.R and show the ongoing analysis processing)
+      
    
 
 
