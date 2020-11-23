@@ -1,6 +1,7 @@
 # TSVR 
+Hi:
 
-*for a general overview of results download "R files" and run the presentation.Rmd file*
+*for a general overview of results, please download zip of the repository, open "R files", open presentation.Rmd file with R Studio program and knit it for a Html page*
 
 ## Preliminary Results :heartpulse:
 This repository contains preliminary results of the study called "Behavioural changes induced by tactile stimulation in VR". 
@@ -48,6 +49,7 @@ The study consisted of 3 blocks of 36 trials, mounting to a goal of 108 observat
       * responsetime.csv (actually it holds response time and accuracy data that work with the anova file.)
       * presentation.Rmd (it presents the code in anovas.R and show the ongoing analysis processing)
       
-   
+   Thank you, 
+   TSVR 
 
 
