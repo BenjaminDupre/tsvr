@@ -18,8 +18,8 @@ tsvr$ptcp <- factor(tsvr$ptcp)
 # tsvr$set <- factor(tsvr$set)
 
 output_anova = ezANOVA(data = tsvr,
-        dv = diff,
-        wid = ptcp,
+        dv = .(diff),
+        wid = .(ptcp),
         within = .(stimulus),
         within_covariates = set,
         detailed = T)
@@ -45,7 +45,7 @@ rt <- rt + geom_pointrange() +
         panel.grid.minor.x = element_blank())
   
 ########## ANOVA for ACCURACY
-fm1<- lmer(accuracy ~ stimulus + (1| ptcp) , data= tsvr)
+fm1<- lmer(accuracy ~ diff + stimulus + (1| ptcp) , data= tsvr)
 summary(fm1)
 anova(fm1, ddf = "Kenward-Roger") 
 ########## Graphic for ACC
@@ -83,3 +83,72 @@ hr <- hr + geom_pointrange() +
   theme(panel.grid.minor = element_line(size = 0.25, linetype = 'solid', colour = "grey") ,
         panel.grid.minor.x = element_blank())
 hr
+######### Graphic IBI version 2. 
+ibig <- ezPlot(data = tsvr2,
+               dv = IBI,
+               wid = ptcp,
+               within = .(stimulus),
+               within_covariates = set,
+               x = .(stimulus),
+               type = 3)
+ibig = ibig +  
+  theme(
+    panel.grid.major.y = element_line(colour = "gray80", size = NULL, linetype = NULL,  
+                                      lineend = NULL)
+    ,panel.grid.minor.y = element_line(colour = "gray90", size = NULL, linetype = NULL,
+                                       lineend = NULL)
+    ,panel.grid.major.x = element_blank()           
+    ,panel.grid.minor.x = element_blank()
+    ,legend.background = element_rect(fill = NULL, colour = "black") 
+    
+    ,panel.background = element_rect(fill = "white", colour = "white", size = NULL, 
+                                     linetype = NULL)
+  )
+ibig
+######### Graphic ACC version 2. 
+acc <- ezPlot(data = tsvr2,
+               dv = accuracy,
+               wid = ptcp,
+               within = .(stimulus),
+               within_covariates = set,
+               x = .(stimulus),
+               type = 3)
+acc
+
+
+acc <- ezPlot(data = tsvr2,
+              dv = accuracy,
+              wid = ptcp,
+              within = .(stimulus),
+              within_covariates = set,
+              x = .(stimulus),
+              type = 3)
+
+acc <- acc + labs(title ="Innacuracy per Condition", x = "Visual - Heptic Stimuli ", y = "Proportion of mistakes") + 
+    theme(
+    panel.grid.major.y = element_line(colour = "gray80", size = NULL, linetype = NULL,  
+                                      lineend = NULL)
+    ,panel.grid.minor.y = element_line(colour = "gray90", size = NULL, linetype = NULL,
+                                       lineend = NULL)
+    ,panel.grid.major.x = element_blank()           
+    ,panel.grid.minor.x = element_blank()
+    ,legend.background = element_rect(fill = NULL, colour = "black") 
+    
+    ,panel.background = element_rect(fill = "white", colour = "white", size = NULL, 
+                                     linetype = NULL)
+        ) 
+
+acc
+
+colors <- c(rgb(0.12, 0.518, 0.204, 0.4),rgb(0.999, 0.240, 0.48, 0.4))
+plot(tsvr$diff,
+     col = colors[as.factor(tsvr$accuracy)],
+     ylab="(sec)",
+     lwd=1.5,
+     font.lab=2,
+     main="Comparison",
+     cex.axis = 1.5,
+     cex.lab = 1.5,
+     font=2,
+     cex.main=1.5,
+     pch=16)
