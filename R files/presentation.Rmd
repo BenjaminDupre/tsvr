@@ -1,7 +1,10 @@
 ---
 title: "TSVR"
-author: " "
-output: html_document
+author: ""
+output: 
+  flexdashboard::flex_dashboard:
+    theme: united
+
 ---
 
 ```{r setup, include=FALSE}
@@ -39,6 +42,46 @@ data_summary <- function(data, varname, grps){
 }
 
 ```
+
+1.Experimental Design & Hypothesis {data-navmenu="Content"}
+=====================================
+
+Row {data-height=350}
+-------------------------------------
+
+#### Hypothesis
+
+
+Several effects have been found on how heartbeat influences conscious perception. To make sense of these findings, we need to look into effects that seem to occur in opposite directions. Particularly, some findings point towards a heart-evoked activity which is positivey related to external perception from the visual domain (Park et al., 2014); whereas from the somatosensory domain, heart-evoked activity has a negative relation with external perception (Esra et al., 2020). 
+
+To account for this, **this same paper hypothesised that heart-related processes in the interoceptive cortices may interfere differently during the processing of exteroceptive somatosensory and visual signals (Esra et al., 2020)**. 
+
+**To test this hypothesis**, we have developed a withing subject virtual reality experiment that will simulate visual and haptic stimuli as provided by Virtual Reality Equipment and Softwear. The measurments use to test the hypothesis are VR behavioral derived and Electro Cardiogram Data (ECG). It is important to hold in mind that this is an exploratory study that will test whether vision-haptic integration can be studied with VR and heart data while perfomring a complex cognitive task.    
+
+Additional to the experimental set up experiment, there are traditionall interoceptive measures such as heartbeat accuracy (Garfinkel et al., 2014), Edimburg Handedness questionaires and a cibersicknes questionaire. This will allow to nest our results in previous literature. 
+
+#### Task Design:
+
+We device an experiment that was carried out with an HTC VIVE headset and two lighthouses. The haptic feedback was generated over datagloves from "neurodigital technologies". The heart data was colected using Arduino Uno and a SparkFun AD8232 HR  Monitor. All the data is directly relayed into a log file compile by Unity softwear through USB2 cable with a 133HZ frequency. Leap motion and dataglove positioning where merged together so to increase accuracy in hands and grabbing positioning.
+
+The first step of the experiment requires for participants to sign the ethical forms, consentment forms as well as the handedness and the base cybersickness questionnaire.
+
+Once in the testing room participants are prepared with the ECG equipment. Then they will go through the pre-experiment heartbeat tracking accuracy test (this concist of silent counting of heartbeat in a 1-minute time window). Next, after geting into the VR headsets and datagloves, the calibration process (letters (a) and (b) in figure 1) begin. Finally the VR task begins. Participants are required to memorise the correct position of the red ball among all the empty slots and distractive colours for a period of X seconds and position the ball (letter c and d in figure 1). They need to perform during three blocks of 36 trials to complete the task.
+
+Details: The red ball will be introduced to one of the hands from the top. They will see a template on the table, which is an identical depiction of the sketch they have seen and memorized at the beginning. The participant has to put the ball in the correct location as fast as possible. The withing subject manipulation that the participant is exposed too is given by the haptic feedback. The base condition is when there is no haptic feedback at all. The incongruous condition is when the ball is placed in the opposite hand from where we visually see the balled being placed. The congruent case is when the participant can feel the haptic stimuli in the same hand the ball is placed. 
+
+Finally, there is a post-experiment for heartbeat tracking accuracy (silent counting of heartbeat in specified 1-minute time window) and a final post-cybersickness questionnaire. 
+
+Column {data-height=600}
+-------------------------------------
+###
+```{r imagen, echo= FALSE,out.width="45%", fig.align='bottom',fig.cap = "Task Design: every trail consists of the same four steps. The first two steps are calibration stages. The last two are part of the memory task **A)** Over the table position calibration **B)** Turning the palms for orientation calibration **C)** Fixating the correct red ball position **D)** Placing the red ball on the correct recalled position"}
+knitr::include_graphics("design_ilustration.png")
+```
+2. Data Processing & Methods of Analysis {data-navmenu="Content"}
+=====================================
+### (re-do ) Data Description
+
 The following dataset used in the analysis counts with a variable number for participants (ptcp), a variable number for the 'set,' which refers to one of the three chunks of uninterrupted trails and a variable called level ('lvl') assigned each of the 36-trials presented per set.
 
 The variable 'start' corresponds to the moment the ball is placed in the hand of the participant. The number represents the row position in the original raw data. Likewise, 'end' corresponds to the explosion of the board and it also represents a row position in the original raw data. 
@@ -49,57 +92,52 @@ The variable 'diff' refers to the time difference between 'start' and 'end', exp
 
 There are some trails being left out due to participants taking longer than 6 seconds to answer, when placed the ball not being recognized, or if there was a ezPlotdata glove failure.  
 
-```{r tsvr, echo=TRUE}
+```{r tsvr, echo= FALSE}
 summary(tsvr)
 ```
 
-**1. Testing time difference between conditions withing subjects (base, congruent, incongruent).**
+3. Preliminary Analysis {data-navmenu="Content"}
+=====================================
+#### Behavioral 
+The haptic manipulation had ambiguous behavioural results compare to the previously outline hypothesis. In terms of accuracy the difference between stimulus is narrow. The mean accuracy percentage (computed for every participant and then globally) for the base haptic stimuli $94.57\%$, for the incongruent haptic stimuli was $94.99\%$ and for congruent visuo-haptic stimuli it was $94.80\%$ **is not normal distributed what shoudl i add IC or SD?** $[F(1,2039)= 0.027, MSE= 0.00, p = 0.974 ,\eta^{2}=0.003]$. **(should i run here a chi-square test ?)** Given that the experiment design is factorial and that accuracy variable for every trial is a binary variable –1 if incorrect and 0 if correct– a simple one way-ANOVA analysis will not detect the effects we are interested in fully. In the main analysis section, we run a **(check this) multilevel analysis  or general linear mixed model** predict the accuracy considering as fix effects stimulus, set and level and random effects for participant.
+
+The results for the Response Time were significant. The mean global mean response time for base stimuli was $3.759 ms$, for incongurent visuo-haptic stimuli was $3.719ms$ and for the congruent visuo-haptic stimuli it was $3.694ms$  $[F(2,42)= 3.52, SSn= 0.03, p = 0.03^* ,\eta^{2}=0.003]$
+
+```{r, include=FALSE}
+# Global mean
+data_summary(tsvr, varname="diff", grps = "stimulus")
+data_summary(tsvr, varname="accuracy", grps = "stimulus")
+# Within Ss ANOVA 
+output_anova = ezANOVA(data = tsvr,
+        dv = .(diff),
+        wid = .(ptcp),
+        within = .(stimulus),
+        within_covariates = set,
+        detailed = T)
+print(output_anova)
+# Improve this Chi square test for accuracy it has problems - non-normal residual
+chisq <- chisq.test(table(tsvr$stimulus,tsvr$accuracy))
+```
+#### Questionaires
+
+Here comes the qestionaire data
+
+4. Main Results {data-navmenu="Content"}
+=====================================
+Row
+-------------------------------------
+### **Multi-level Model**
 
 a.- With the aggregated data, partially cleaned, we run an ANOVA to test for response time difference between stimuli groups. I was not familiar with this package, which Esra suggested and it runs easily within subjects ANOVAS. The results show significant difference between groups: 
 
 *diff is not a normally distributed variable, ANOVA can handle this*
 
-```{r, echo=TRUE, warning=FALSE}
-output_anova = ezANOVA(data = tsvr,
-        dv = .(diff),
-        wid = .(ptcp),
-        within = .(stimulus),
-        within_covariates = .(set),
-        detailed = T,
-        type=3)
-
-print(output_anova)
-```
-
-b.- The slowest condition is the only visual condition, followed by the congruent visuo-haptic condition and the slowest condition is the incongruent visuo-haptic. 
+b.- The slowest condition is the only visual condition, followed by the incongruent and the fastest condition is the congruent visuo-haptic. 
 
 The estimated effect size is very small, although significant. (E.g. mean difference between base and incongruent visual-haptic condition is 53 milliseconds. The standard deviation is 600 milliseconds. 
 
+### **Testing for accuracy difference between conditions withing subjects (base, congruent, incongruent).**
 
-```{r, echo=FALSE, fig.align = "center",  warning=FALSE}
-
-rt <- ezPlot(data = tsvr,
-         dv = diff,
-         wid = ptcp,
-         within = .(stimulus),
-         within_covariates = set,
-         x = .(stimulus))
-rt = rt + labs(title ="Response Time per Condition", x = "Visual - Heptic Stimuli", y = "(mean in seconds)") + 
-      theme(
-        panel.grid.major.y = element_line(colour = "gray80", size = NULL, linetype = NULL,  
-                                          lineend = NULL)
-        ,panel.grid.minor.y = element_line(colour = "gray90", size = NULL, linetype = NULL,
-                                           lineend = NULL)
-        ,panel.grid.major.x = element_blank()           
-        ,panel.grid.minor.x = element_blank()
-        ,legend.background = element_rect(fill = NULL, colour = "black") 
-
-        ,panel.background = element_rect(fill = "white", colour = "white", size = NULL, 
-                                         linetype = NULL))
-rt
-```
-
-**2. Testing for accuracy difference between conditions withing subjects (base, congruent, incongruent).**
 
 a.- We are to consider whether congruent, incongruent and base conditions play any significant roll on the mistake’s behaviour shown by participants when placing the ball on the memorised spot. 
 
@@ -107,11 +145,9 @@ Since we have defined the variable as binary dependant one (0 if correct 1 if in
 
 The model shows no significant difference between the mistake rate between categories. Mistakes only show significant results for response time variable, although the effect size is small. It would not seem relevant for our proposes because it is not our manipulated variable.
 
-```{r , echo=FALSE, fig.align = "center", warning=FALSE}
-########## ANOVA for ACCURACY
-fm1<- lmer(accuracy ~ stimulus + (1 | ptcp) , data= tsvr)
-summary(fm1)
+###
 
+```{r , echo=FALSE, fig.align = "center", warning=FALSE}
 acc <- ezPlot(data = tsvr,
               dv = accuracy,
               wid = ptcp,
@@ -135,7 +171,10 @@ acc <- acc + labs(title ="Innacuracy per Condition", x = "Visual - Heptic Stimul
 acc
 ```
 
-**3. Testing for IBI difference between conditions withing subjects (base, congruent, incongruent).**
+5. Heart related results - Beat Interval (IBI) {data-navmenu="Content"}
+=====================================
+### **Testing for IBI difference between conditions withing subjects (base, congruent, incongruent).**
+
 ```{r, include=FALSE}
 setwd('/Users/calypso/Dropbox/My Mac (glaroam2-185-117.wireless.gla.ac.uk)/Documents/Research MaxPlank/P1_propioception/R_tsvr_presentation/data/')
 tsvr2 <- read.table('behavioral_a.csv', header=T,sep = ',',dec = '.')
@@ -157,7 +196,11 @@ output_anova2 = ezANOVA(data = tsvr2,
                        within_covariates = .(set),
                        detailed = T)
 print(output_anova2)
+```
 
+### Graphic
+
+```{r, echo=FALSE, warning=FALSE, fig.align = "center"}
 ibig <- ezPlot(data = tsvr2,
                dv = IBI,
                wid = ptcp,
@@ -180,17 +223,50 @@ ibig = ibig +  labs(title ="IBI per Condition", x = "Visual - Heptic Stimuli", y
 ibig
 ```
 
-**4. Discussion**
+
+
+5. Interpretation {data-navmenu="Content"}
+=====================================
+### **Discussion**
+
+
 
 a. There is a big dispersion in responses time. It might be better to restrict more the maximal answer condition from 6 to 5 seconds. 
+
 b. There where 3 participants whos IBI wasn't considered because the MTEO algorithm. This needs to be yet adress. 
+
 c. Meanwhile we are collecting 2 more participants. 
+
 d. Check T R-peak distance? 
+
 e. Compare change between preInteroceptive test x every condition (Meaning use the previous part of the experiment, where the participant sits to count HB) The idea is to see if the change respect the base is differentfor the conditions. 
 
 
 
 
+<style>
+
+#sidebar.section.sidebar {
+
+  background-color: white; 
+  font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif !important;
+
+}
+
+.js-irs-0 .irs-bar {
+border-top-color: #d01010;
+border-bottom-color: #d01010;
+} 
+
+.js-irs-0 .irs-bar-edge {
+border-color: #d01010;
+}
+
+.js-irs-0 .irs-single, .js-irs-0 .irs-bar-edge, .js-irs-0 .irs-bar {
+background: #a00;
+}
+
+</style>
 
 
 
