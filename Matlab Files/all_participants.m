@@ -6,8 +6,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 tic
-allFolder = 'your working directory';
-cd(allFolder)
+allFolder = '/Users/calypso/Dropbox/My Mac (glaroam2-185-117.wireless.gla.ac.uk)/Documents/Research MaxPlank/P1_propioception/Data_Wrangling/Matlab Analysis/Data_Wrangling/';
 parti = dir(allFolder);
 %This filters out all the items in the main folder that are not directories
 parti(~[parti.isdir]) = [];
@@ -19,12 +18,13 @@ all2(5).ptcp = [];
 for i=1:numberOfFolders
     ptcp=parti(i).name;
     all2(i).ptcp = ptcp;
-    run(append(allFolder,'load_everything.m'))
+    run('/Users/calypso/Dropbox/My Mac (glaroam2-185-117.wireless.gla.ac.uk)/Documents/Research MaxPlank/P1_propioception/Data_Wrangling/Matlab Analysis/Data_Wrangling/load_everything_13_10_20_.m')
     all2(i).data = all;
-    run(append(allFolder, 'building_response_time.m'))
+    run('/Users/calypso/Dropbox/My Mac (glaroam2-185-117.wireless.gla.ac.uk)/Documents/Research MaxPlank/P1_propioception/Data_Wrangling/Matlab Analysis/Data_Wrangling/building_response_time.m')
     all2(i).rtime = r_time;
 end
-clear all parti ptcp i handrot numberOfFolders subdirs r_time B % Getting rid of all intermidiate variables. 
+clear all parti ptcp i handrot allFolder numberOfFolders subdirs r_time B   % Getting rid of all intermidiate variables. 
+
 toc
 
 
