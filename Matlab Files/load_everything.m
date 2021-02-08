@@ -9,7 +9,7 @@
 opts = delimitedTextImportOptions("NumVariables", 28);
 
 % Specify range and delimiter
-opts.DataLines = [100, 203641];
+opts.DataLines = [100, Inf];
 opts.Delimiter = ";";
 
 % Specify column names and types
