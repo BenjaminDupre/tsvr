@@ -1,5 +1,5 @@
 # TSVR 
-Hi: (test whether commiting if working)
+Hi: 
 
 *for a general overview of results, please download zip of the repository, open "R files", open presentation.Rmd file with R Studio program and knit it for a Html page*
 
