@@ -87,7 +87,7 @@ for k = 1:height(points)
         points.zyklus(k)= "None Vibrating R ot T";
     end    
 end    
-% Checking Results
+% Checking R
 tabulate(points.zyklus)
 points(points.zyklus=="0",:)
 
