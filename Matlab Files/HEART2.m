@@ -1,10 +1,11 @@
-%%  Heart Rate varaibility with circular  kstatistics. 16 Januar 
+%%==Heart Rate varaibility with circular  kstatistics. 16 Januar=========== 
+
 % Analysing for 1 Signal
-%% Initialization. 
+%%======================= Initialization.================================== 
 fs=133;
 gr=false;
-i=4;
-%% Finding Haptic Stimuli Onset. 
+i=5;
+%% ===================Finding Haptic Stimuli Onset.======================== 
 [rows, cols, vals] = find(all2(i).data.leftHandVibration=="True" |...
     all2(i).data.rightHandVibration=="True");
 [rows2, cols2, vals2] = find(all2(i).data.leftHandVibration=="False" ...
@@ -46,7 +47,7 @@ title('Interbeat Intervals')
 xlabel('Beats')
 ylabel('Seconds')
 hold off;   
-%% Did the vibration started on Systole or Diastole?
+%% ===========Did the vibration started on Systole or Diastole?============
 % Detecting the starting point . for the virbation
 [vib, cols, vals] = find(ECG_vibration(:,3)==1);
 [vib_start, cols2, vals2] = find(diff(vib)>55);
@@ -66,11 +67,13 @@ str2="R";
 str3="VS";
 T_t = repelem(str1,size(T,1)).';
 R_r = repelem(str2,size(R,1)).';
-V_s = repelem(str3,size(vib_start,1)).';
+tool1 = ECG_vibration(ECG_vibration(:,3)==1,:);
+tool2 =  tool1(vib_start,1);
+V_s = repelem(str3,size(tool2,1)).';
 
 A = table(T(:,1),T_t, 'VariableNames',{'row','Zustand'});
 B = table(R(:,1),R_r, 'VariableNames',{'row','Zustand'});
-C = table(vib_start(:,1),V_s, 'VariableNames',{'row','Zustand'});
+C = table(tool2,V_s, 'VariableNames',{'row','Zustand'});
 points= [A; B; C];
 points =sortrows(points, "row");
 
@@ -84,15 +87,17 @@ for k = 1:height(points)
             points.zyklus(k)="Diastole";
         end
     else
-        points.zyklus(k)= "None Vibrating R ot T";
+        points.zyklus(k)= "None Starting Vibration";
     end    
 end    
 % Checking Results
 tabulate(points.zyklus)
 points(points.zyklus=="0",:)
+% Clearing tool variables. 
+clear str1 str2 str3 T T_t V_s R R_r 
 %% Asignating Heart Cycle lavel into Behavioral Table. 
 %% ============== Preparing Behavioral file to to R =======================
-tic
+
 behavioral_a =[];
 for i=1:size(all2,2)
     responsetime = all2(i).rtime.data;
@@ -134,11 +139,46 @@ for i=1:size(mistakes_ag,1)
 end
 
 clear responsetime i
+%% =======Adding column with diastole or systole to behavioral data.=======
+
+ behavioral_a.zyklus = string(zeros(height(behavioral_a),1));
+% 
+aid_replace = points;%(points.Zustand=="VS",:); % mut malo no corror for loop
+ 
+% I need to find the row number and then the actual value for point for the 
+% corresponding ptc level etc.
+
+ptcp = 5; % participant 
+set=1; % set 
+i=2; % level 
+
+tool3 = find(behavioral_a.start(behavioral_a.ptcp==ptcp &...
+    behavioral_a.lvl==i & behavioral_a.set==set,:) < tool2 &...
+    tool2 < behavioral_a.end(behavioral_a.ptcp==ptcp &...
+    behavioral_a.lvl==i & behavioral_a.set==set,:));
+
+behavioral_a.zyklus(behavioral_a.ptcp==ptcp &...
+    behavioral_a.lvl==i & behavioral_a.set==set) = string(points(tool3,3));
+
+behavioral_a.start(i)
+behavioral_a(behavioral_a.ptcp==ptcp & behavioral_a.lvl==i & behavioral_a.set==set,:);
+
+
+
+for i=1:height(behavioral_a)
+    if behavioral_a.start(i) < aid_replace.row(j) & ...
+                        aid_replace.row(j) < behavioral_a.end(i)            % start point its between level
+        behavioral_a.zyklus(i) = aid_replace.zyklus(j);
+    else
+        behavioral_a.zyklus(i) = "not found";
+    end
+end
+end
 %% ============== Saving New Matrix =======================================
 writetable(behavioral_a,['/Users/calypso/Dropbox/'...
 'My Mac (glaroam2-185-117.wireless.gla.ac.uk)/Documents/Research MaxPlank/'...
 'P1_propioception/R_tsvr_presentation/data/responsetime.csv'])
-toc
+
 
 
 % %% Saving Data To Use it in R
