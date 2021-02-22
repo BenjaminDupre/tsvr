@@ -22,6 +22,7 @@ library(gridBase) # its used to mixed the graphics together base and ggplot
 library(grid) # its used to mixed the graphics together base and ggplot
 ########## Defining Working Folder
 setwd('/Users/calypso/Dropbox/My Mac (glaroam2-185-117.wireless.gla.ac.uk)/Documents/Research MaxPlank/P1_propioception/R_tsvr_presentation/data/')
+# Prueba de que puedo cambiar cosas 
 ##########Loading File
 tsvr <- read.table('responsetime.csv',header=T,sep = ',',dec = '.') # this is the file saved from the matlab file 
 tsvr2 <- read.table('behavioral_a.csv', header=T,sep = ',',dec = '.')
