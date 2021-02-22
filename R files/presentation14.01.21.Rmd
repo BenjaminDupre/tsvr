@@ -53,7 +53,11 @@ Row {data-height=350}
 #### Hypothesis
 
 
-Several effects have been found on how heartbeat influences conscious perception. To make sense of these findings, we need to look into effects that seem to occur in opposite directions. Particularly, some findings point towards a heart-evoked activity which is positively related to external perception from the visual domain (Park et al., 2014); whereas from the somatosensory domain, heart-evoked activity has a negative relation with external perception (Esra et al., 2020). 
+There is an event that that showed that interospectiv people seems to be more affected by touch, or hand rubber ilussion.
+What is heart behavior a property a event or an  (What am I explaining here?)
+Why do we react faster when we perceive touch and visual stimuli than when we only perceive visual? Its important to mention that to perform the task only the visual stimuli seems relevant. 
+
+Several effects have been found on how heartbeat influences conscious perception. To make sense of these findings we need to further look into effects occur in opposite directions. Particularly, the finding that shows that heart-evoked activity positively relates to external perception from the visual domain (Park et al., 2014); whereas in the somatosensory domain, heart-evoked activity has a negative relation with external perception (Esra et al., 2020). 
 
 To account for this, **the previously mentioned paper hypothesized that heart-related processes in the interoceptive cortices may interfere differently during the processing of exteroceptive somatosensory and visual signals (Esra et al., 2020)**. 
 
@@ -129,7 +133,7 @@ chisq <- chisq.test(table(tsvr$stimulus,tsvr$accuracy))
 ```
 #### Questionaires
 
-After the VR experience participants on average reported lower heart rate count for the post VR $(M=49.25,SD=20.04)$ case than the pre VR case $(M=57.28, SD=19.45)$. The difference is significant while running an ANOVA. 
+After the VR experience, participants on average reported lower heart rate count for the post VR heartbeat tracking $(M=49.25,SD=20.04)$ than the pre VR heartbeat tracking  $(M=57.28, SD=19.45)$. The difference is significant while running an ANOVA. 
 ```{r, include=FALSE }
 setwd("/Users/calypso/Dropbox/My Mac (glaroam2-185-117.wireless.gla.ac.uk)/Documents/Research MaxPlank/P1_propioception/R_tsvr_presentation/data")
 # Loading csv file 
