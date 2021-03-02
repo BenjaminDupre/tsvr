@@ -182,5 +182,5 @@ clear fs gr i row
 
 writetable(behavioral_a,['/Users/calypso/Dropbox/'...
 'My Mac (glaroam2-185-117.wireless.gla.ac.uk)/Documents/Research MaxPlank/'...
-'P1_propioception/R_tsvr_presentation/data/responsetime1.csv'])
+'P1_propioception/R_tsvr_presentation/data/zusammen.csv'])
 
