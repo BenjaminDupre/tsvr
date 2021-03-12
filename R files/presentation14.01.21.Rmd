@@ -108,10 +108,16 @@ Here comes the methods description.
 3. Preliminary Analysis {data-navmenu="Content"}
 =====================================
 
-In total there where 22 people included in the experiment, not counting 5 individuals who perform a pilot version of it. From the 22 persons included the age range goes from 18 to 50 $(M=24.14,SD=6.42)$ normally distributed. There were 17 female participants and 5 male participants. 
+In total there where 22 persons included in the experiment and 5 on the pilot version. Among these 22 persons, the age range goes from 18 to 50 $(M=24.14,SD=6.42)$ normally distributed. There were 17 female and 5 male participants. 
 
 #### Behavioral 
-The haptic manipulation had ambiguous behavioural results compare to the previously outline hypothesis. In terms of accuracy the difference between stimulus is narrow. The mean accuracy percentage (computed for every participant and then globally) for the base haptic stimuli $94.57\%$, for the incongruent haptic stimuli was $94.99\%$ and for congruent visuo-haptic stimuli it was $94.80\%$ **(is not normal distributed what shoudl i add IC or SD?)** $[F(1,2039)= 0.027, MSE= 0.00, p = 0.974 ,\eta^{2}=0.003]$. This shows that the difficulty of the task was not too high. Also, that when the stimuli ocurred it was not translated into a detriment for accuracy behavior. Is it possible to observe a change on behavior or physiology that could  
+Compared to the previously outline hypothesis, the haptic manipulation had ambiguous behavioral results. In terms of accuracy the difference between stimulus is narrow and none significant**(is not normal distributed what should I add IC or SD?)** $[F(1,2039)= 0.027, MSE= 0.00, p = 0.974 ,\eta^{2}=0.003]$. For every condition, the mean percentage accuracy --computed for every participant and then globally-- were: 
+
+* Base visual stimuli $94.57\%$ 
+* Incongruent visuo-haptic stimuli was $94.99\%$ 
+* Congruent visuo-haptic stimuli it was $94.80\%$ 
+
+This shows indicate that the difficulty of the task was not too high. Also, that when the stimuli ocurred it was not translated into a detriment for accuracy behavior. Is it possible to observe a change on behavior or physiology that could  
 
 Given that the experiment design is factorial and that accuracy variable for every trial is a binary variable –1 if incorrect and 0 if correct– a simple one way-ANOVA analysis will not detect the effects we are interested in fully. In the main analysis section, we run a **(check this) multilevel analysis  or general linear mixed model** predict the accuracy considering as fix effects stimulus, set and level and random effects for participant.
 

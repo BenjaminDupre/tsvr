@@ -4,9 +4,9 @@
 library(ez) # for anovas
 library(plyr) # for building the rt graph and revalue function.
 library(ggplot2)
-library(tidyverse)
+library(tidyverse) # for playing around with the %>%
 #library(gapminder) # sacar si no uso
-#library("viridis")           
+library("viridis")           
 normalize <- function(x) {
   return ((x - min(x)) / (max(x) - min(x)))
 }
@@ -19,10 +19,8 @@ tsvr <- tsvr[!(tsvr$zyklus== "0"),]
 # Arranging factors so to have base conditions in order
 tsvr$stimulus <- factor(tsvr$stimulus, levels = c(3, 2, 1))
 tsvr$stimulus <-revalue(tsvr$stimulus, c("3"="base", "2"="Incongruent", "1"="Congruent"))
-
-tsvr$zyklus = factor(tsvr$zyklus,levels(tsvr$zyklus)[c(1, 3, 2, 4)])
+tsvr$zyklus = factor(tsvr$zyklus,levels(tsvr$zyklus)[c(1, 3, 2, 4)]) # the factor function is different because zyklus is already recognize as a factor. 
 tsvr$zyklus <- droplevels(tsvr$zyklus)
-
 #tsvr$ptcp <- factor(tsvr$ptcp)
 
 # Normalizing response time for every participant
@@ -42,7 +40,7 @@ output_anova = ezANOVA(data = tsvr,
                        dv = .(diff),
                        wid = .(ptcp),
                        within  = .(zyklus),
-                       #within_covariates = stimulus,
+                       within_covariates = .(set),
                        #diff = .(stimulus),
                        detailed = T)
 
@@ -53,7 +51,7 @@ output_anova2 = ezANOVA(data = tsvr,
                        dv = .(diff),
                        wid = .(ptcp),
                        within  = .(stimulus),
-                       #within_covariates = .(set,lvl),
+                       within_covariates = .(set),
                        #diff = .(stimulus),
                        detailed = T)
 print(output_anova2)
@@ -78,7 +76,7 @@ df %>%
   scale_color_viridis(option = "D")+
   theme(legend.position="none" )
 
-
+boxplot(diff ~ stimulus*zyklus,sub)
 
 normalize(tsvr$diff)
 normalize(tsvr$diff)

@@ -20,6 +20,7 @@ library(lme4) # to test difference in accuracy
 library(lmerTest) # to test Now approx p-val w/Kenward-Roger’s approximations
 library(gridBase) # its used to mixed the graphics together base and ggplot
 library(grid) # its used to mixed the graphics together base and ggplot
+
 ########## Defining Working Folder
 setwd('/Users/calypso/Dropbox/My Mac (glaroam2-185-117.wireless.gla.ac.uk)/Documents/Research MaxPlank/P1_propioception/R_tsvr_presentation/data/')
 # Prueba de que puedo cambiar cosas 
@@ -54,17 +55,18 @@ Row {data-height=350}
 #### Hypothesis
 
 
-There is an event that showed that interospective people seems to be more affected by touch, or hand rubber illusion.
-What is heart behavior a property a event or an  (What am I explaining here?)
-Why do we react faster when we perceive touch and visual stimuli than when we only perceive visual? Its important to mention that to perform the task only the visual stimuli seems relevant. 
+<!-- There is an event that showed that interospective people seems to be more affected by touch, or hand rubber illusion. -->
+<!-- What is heart behavior a property a event or an  (What am I explaining here?) -->
 
-Several effects have been found on how heartbeat influences conscious perception. To make sense of these findings we need to further look into effects occur in opposite directions. Particularly, the finding that shows that heart-evoked activity positively relates to external perception from the visual domain (Park et al., 2014); whereas in the somatosensory domain, heart-evoked activity has a negative relation with external perception (Esra et al., 2020). 
+<!-- Why do we react faster when we perceive touch and visual stimuli than when we only perceive visual? Its important to mention that to perform the task only the visual stimuli seems relevant.  -->
+
+Several effects have been found on how heartbeat influences conscious perception. To make sense of these findings we need to further look into effects that seem to occur in opposite directions. Particularly, the finding that shows that heart-evoked activity positively relates to external perception from the visual domain (Park et al., 2014); whereas in the somatosensory domain, heart-evoked activity has a negative relation with external perception (Esra et al., 2020). 
 
 To account for this, **the previously mentioned paper hypothesized that heart-related processes in the interoceptive cortices may interfere differently during the processing of exteroceptive somatosensory and visual signals (Esra et al., 2020)**. 
 
 **To test this hypothesis**, we have developed a withing subject virtual reality experiment that will simulate visual and haptic stimuli as provided by Virtual Reality Equipment and Software. The measurements use to test the hypothesis are VR behavioral derived and Electro Cardiogram Data (ECG). It is important to hold in mind that this is an exploratory study that will test whether vision-haptic integration can be studied with VR and heart data while performing a complex cognitive task.    
 
-Additional to the experimental set up experiment, there are traditional interoceptive measures such as heartbeat accuracy (Garfinkel et al., 2014), Edinburgh Handedness Questionnaire and a cibersicknes questionnaire. This will allow to nest our results in previous literature. 
+Additional to the experimental set up, there are traditional interoceptive measures such as heartbeat accuracy (Garfinkel et al., 2014), Edinburgh Handedness Questionnaire and a cibersicknes questionnaire. This will allow to nest our results in previous literature and control for confounded variables. 
 
 #### Task Design:
 
@@ -72,7 +74,7 @@ We device an experiment that was carried out with an HTC VIVE headset and two li
 
 The first step of the experiment requires for participants to sign the ethical forms, consent forms as well as the handedness and the base cybersickness questionnaire.
 
-Once in the testing room participants are prepared with the ECG equipment. Then they will go through the pre-experiment heartbeat tracking accuracy test (this consist of silent counting of heartbeat in a 1-minute time window). Next, after geting into the VR headsets and datagloves, the calibration process (letters (a) and (b) in figure 1) begin. Finally the VR task begins. Participants are required to memorise the correct position of the red ball among all the empty slots and distracting colours for a period of X seconds and position the ball (letter c and d in figure 1). They need to perform during three blocks of 36 trials to complete the task.
+Once in the testing room participants are prepared with the ECG equipment. Then they will go through the pre-experiment heartbeat tracking accuracy test (this consist of silent counting of heartbeat in a 1-minute time window). Next, after getting into the VR headsets and datagloves, the calibration process (letters (a) and (b) in figure 1) begin. Finally the VR task begins. Participants are required to memorize the correct position of the red ball among all the empty slots and distracting colours for a period of X seconds and position the ball (letter c and d in figure 1). They need to perform during three blocks of 36 trials to complete the task.
 
 Details: The red ball will be introduced to one of the hands from the top. They will see a template on the table, which is an identical depiction of the sketch they have seen and memorized at the beginning. The participant has to put the ball in the correct location as fast as possible. The withing subject manipulation that the participant is exposed too is given by the haptic feedback. The base condition is when there is no haptic feedback at all. The incongruous condition is when the ball is placed in the opposite hand from where we visually see the balled being placed. The congruent case is when the participant can feel the haptic stimuli in the same hand the ball is placed. 
 
@@ -84,44 +86,39 @@ Column {data-height=600}
 ```{r imagen, echo= FALSE,out.width="45%", fig.align='bottom',fig.cap = "Task Design: every trail consists of the same four steps. The first two steps are calibration stages. The last two are part of the memory task **A)** Over the table position calibration **B)** Turning the palms for orientation calibration **C)** Fixating the correct red ball position **D)** Placing the red ball on the correct recalled position"}
 knitr::include_graphics("design_ilustration.png")
 ```
-2. Data Processing & Methods of Analysis {data-navmenu="Content"}
-=====================================
-### (re-do ) Data Description
+<!-- 2. Data Processing & Methods of Analysis {data-navmenu="Content"} -->
+<!-- ===================================== -->
+<!-- ### (re-do ) Data Description -->
 
-The following dataset used in the analysis counts with a variable number for participants (ptcp), a variable number for the 'set,' which refers to one of the three chunks of uninterrupted trails and a variable called level ('lvl') assigned each of the 36-trials presented per set.
+<!-- Here comes the data description. -->
 
-The variable 'start' corresponds to the moment the ball is placed in the hand of the participant. The number represents the row position in the original raw data. Likewise, 'end' corresponds to the explosion of the board and it also represents a row position in the original raw data. 
+<!-- ```{r tsvr, echo= FALSE} -->
+<!-- summary(tsvr) -->
+<!-- ``` -->
+<!-- ### Methods of Analysis. -->
 
-The variable 'accuracy' takes value 1 when there is a mistake 0 otherwise.
+<!-- Here comes the methods description. -->
 
-The variable 'diff' refers to the time difference between 'start' and 'end', expressed in seconds and to finalize the categorical variable 'stimulus' signals whether the participant felt the vibration on the same hand the see the ball placed or not.
-
-There are some trails being left out due to participants taking longer than 6 seconds to answer, when placed the ball not being recognized, or if there was a ezPlotdata glove failure.  
-
-```{r tsvr, echo= FALSE}
-summary(tsvr)
-```
-### Methods of Analysis. 
-
-Here comes the methods description. 
-
-3. Preliminary Analysis {data-navmenu="Content"}
+2. Preliminary Analysis {data-navmenu="Content"}
 =====================================
 
-In total there where 22 persons included in the experiment and 5 on the pilot version. Among these 22 persons, the age range goes from 18 to 50 $(M=24.14,SD=6.42)$ normally distributed. There were 17 female and 5 male participants. 
+In total there were 22 persons included in the experiment and 5 on the pilot version. Among these 22 persons, the age is normally distributed and its range goes from 18 to 50 $(M=24.14,SD=6.42)$. In our sample there are 17 females and 5 male participants. (All participants are between 18 and 30 y/o, except for one that is 50. We decided to include it because its data does not differentiate greatly from all other participants except for the age).
 
 #### Behavioral 
-Compared to the previously outline hypothesis, the haptic manipulation had ambiguous behavioral results. In terms of accuracy the difference between stimulus is narrow and none significant**(is not normal distributed what should I add IC or SD?)** $[F(1,2039)= 0.027, MSE= 0.00, p = 0.974 ,\eta^{2}=0.003]$. For every condition, the mean percentage accuracy --computed for every participant and then globally-- were: 
+Compared to the previously outline hypothesis, the haptic manipulation had ambiguous behavioral results:
+
+1. In terms of *accuracy*, the within participants ANOVA output a narrow difference between groups and none significant**(is not normally distributed what should I add IC or SD?)** $[F(1,2039)= 0.027, MSE= 0.00, p = 0.974 ,\eta^{2}=0.003]$. For every condition, the mean percentage accuracy --computed for every participant and then globally-- were: 
 
 * Base visual stimuli $94.57\%$ 
 * Incongruent visuo-haptic stimuli was $94.99\%$ 
 * Congruent visuo-haptic stimuli it was $94.80\%$ 
 
-This indicates that the task elicited a 5% mistake rate which left too small of a sample to capture significant differences between conditions. Or in other words, mistakes that when the stimuli occurred, it was not translated into a detriment for accuracy behavior. Is it possible to observe a change on behavior or physiology that could  
+  This indicates that the task elicited a 5% mistake rate on average. This is too small of a sample to capture significant differences between manipulated conditions (cong V_H,inc V_H, base). In other words, mistakes occur so rarely that is not possible to subdivide them into smaller groups. 
 
-Given that the experiment design is factorial and that accuracy variable for every trial is a binary variable –1 if incorrect and 0 if correct– a simple one way-ANOVA analysis will not detect the effects we are interested in fully. In the main analysis section, we run a **(check this) multilevel analysis  or general linear mixed model** predict the accuracy considering as fix effects stimulus, set and level and random effects for participant.
+2. In term of Response Time (RT), the within participants ANOVA results for were significant $[F(2,42)= 3.52, SSn= 0.03, p = 0.03^* ,\eta^{2}=0.003]$. The response time range for base stimuli was between 3.12s to 6.00s $(M=3.75 s, SD=0.64)$, for incongruent visuo-haptic stimuli was from 3.12 to 5.97 $(M=3.72s, SD=0.63)$ and for the congruent visuo-haptic stimuli it was from 3.13 to 5.96 $(M=3.69s, SD=0.62)$  . 
 
-The within participants ANOVA results for Response Time were significant $[F(2,42)= 3.52, SSn= 0.03, p = 0.03^* ,\eta^{2}=0.003]$. The response time range for base stimuli was between 3.12s to 6.00s $(M=3.75 s, SD=0.64)$, for incongruent visuo-haptic stimuli was from 3.12 to 5.97 $(M=3.72s, SD=0.63)$ and for the congruent visuo-haptic stimuli it was from 3.13 to 5.96 $(M=3.69s, SD=0.62)$  . 
+We can observe that for both ANOVA the $\eta^{2}$ is low, although for RT for the haptic manipulation proved significant. To look further into this later on we run a multilevel analysis. The idea is that running this analysis we will dimension the relative importance of other factors such as participant, set and level on the response time results. We expect for individual differences to explain great part of the variance and the other variables too. Our manipulation nonetheless, is likely to reflect multisensory efforts, therefore expected to be small but still significant relative to the complete answering time.  
+
 
 ```{r, include=FALSE}
 # Global mean
@@ -140,33 +137,74 @@ chisq <- chisq.test(table(tsvr$stimulus,tsvr$accuracy))
 ```
 #### Questionaires
 
-After the VR experience, participants on average reported lower heart rate count for the post VR heartbeat tracking $(M=49.25,SD=20.04)$ than the pre VR heartbeat tracking  $(M=57.28, SD=19.45)$. The difference is significant while running an ANOVA. 
-```{r, include=FALSE }
-setwd("/Users/calypso/Dropbox/My Mac (glaroam2-185-117.wireless.gla.ac.uk)/Documents/Research MaxPlank/P1_propioception/R_tsvr_presentation/data")
-# Loading csv file 
-meta <- read.csv('meta-data.csv',header=T,sep = ',',dec = '.',fill = TRUE, na.strings=c(""," ","NA"), stringsAsFactors=FALSE) # this is the file sheet as from the drive.
-meta <- meta[-23,c(-7,-10,-11)]
-meta$post <- as.integer(meta$post) # correcting post consider as chr
-```
-```{r, echo=TRUE }
-a<- aov(meta[,8]  ~ meta[,7])
-summary(a)  
+After the VR experience, participants on average reported lower heart rate count for the post VR heartbeat tracking $(M=49.25,SD=20.04)$ than the pre VR heartbeat tracking  $(M=57.28, SD=19.45)$. The reported difference was not significant $[F(1,40)= 1.73, SSn= 0.03, p = 0.19 ,\eta^{2}=0.04]$ (two participants where remove because they did not performed the post-experiment measurements).
+
+#### Heart-Behavioral Results. 
+
+There are 4 participants with artifacts that could not be identified by the algorith on different heart cycles (Ptcp number 2,3,13,11).
+
+Because the error rate is low we did not consider an ANOVA between the heart-cycle and error rate. Only for RT. Additionally, if we base ourselves in previous literature only, is hard to hypothesize results over the effect of heart-cycle on RT. From literature we expect to see a significant effect, but since in our task there is simultaneous visual and haptic stimuli, the overall conclusion is ambiguous. We can speculate, if the visual effect primes over the haptic effect, we would expect that for the systolic heart cycle there is an improvement in performance. Whereas, if the haptic stimuli primes the visual for systolic heart-cycle, we can expect a determent in performance. 
+
+We run a three group ANOVA that gives significant results $[F(2,34)= 4.12, SSn= 0.03, p = 0.02^* ,\eta^{2}=0.009]$. The following figure show us that systolic heart cycle was slower than the diastolic heart cycle. Also that when there as no vibration the response was slower than either case. Not all participants show the same results. As a matter of fact half (ptcp: 7,5,1,17,19,18,12,10,20) participant did not showed this pattern. It will be relevant the Multilevel analysis (IMMROVE CORRECT!!!!)
+
+
+```{r, echo=FALSE, warning=FALSE, fig.align = "center"}
+setwd("/Users/calypso/Dropbox/My Mac (glaroam2-185-117.wireless.gla.ac.uk)/Documents/MATLAB/projects/untitled/R files")
+library("viridis")  
+library(tidyverse) # for playinng arounnd with the %>%
+tsvr3 <- read.table('responsetime1.csv',header=T,sep = ',',dec = '.') # this is the file saved from the Matlab file
+# Removing specific participants &  wrongly assigned data,
+tsvr3 <- tsvr3[!(tsvr3$ptcp== 2   | tsvr3$ptcp== 3 | tsvr3$ptcp == 13 | tsvr3$ptcp == 11),]
+tsvr3 <- tsvr3[!(tsvr3$zyklus== "0"),]
+#tsvr <- tsvr[!(tsvr$zyklus== "0" | tsvr$zyklus == "keine vibration"),]
+# Arranging factors so to have base conditions in order
+tsvr3$stimulus <- factor(tsvr3$stimulus, levels = c(3, 2, 1))
+tsvr3$stimulus <-revalue(tsvr3$stimulus, c("3"="base", "2"="Incongruent", "1"="Congruent"))
+tsvr3$zyklus = factor(tsvr3$zyklus,levels(tsvr3$zyklus)[c(1, 3, 2, 4)]) # the factor function is different because zyklus is already recognize as a factor.
+tsvr3$zyklus <- droplevels(tsvr3$zyklus)
+#tsvr$ptcp <- factor(tsvr$ptcp)
+
+# Normalizing response time for every participant
+# for (i in min(tsvr$ptcp):max(tsvr$ptcp)){
+#   tsvr[tsvr$ptcp==i,5]=normalize(tsvr[tsvr$ptcp==i,5])
+# }
+df = tsvr3 %>%
+  #filter(ptcp != 22) %>%
+  #filter(zyklus %in% c("Diastole","Systole")) %>%
+  group_by(ptcp,zyklus) %>%
+  summarise(n_diff = mean(diff))
+  #summarise(n_diff = mean(diff))
+
+df %>%
+  ggplot(aes(zyklus,n_diff, fill=zyklus)) +
+  geom_boxplot() +
+  scale_fill_brewer()+
+  geom_line(aes(group=ptcp, col=ptcp)) +#, position = position_dodge(0.2)) +
+  geom_point(aes(group=ptcp, col=ptcp)) +#, position = position_dodge(0.2)) +
+  scale_color_viridis(option = "D")+
+  theme(legend.position="none" )
 
 ```
 
-4. Main Results {data-navmenu="Content"}
+
+4. Multilevel Analysis {data-navmenu="Content"}
 =====================================
 Row
 -------------------------------------
 ### **Multi-level Model**
 
-We fitted a multi-level model that explained response time (diff) (This were the results found significant in the previous preliminary analysis). On this model we have as fixed effects: trial level, set number and stimulus conditionS. As random effects we are considering the participant (ptcp) variable. The formulation would look something like this: $$diff = 1+stimulus+lvl+set+(1|ptcp)$$. 
+
+We fitted a multilevel model that explained response time (diff). Which in the previous section showeed significant for several independent variables. The following presented model considers as fixed effects: trial level, set number and stimulus conditions and heart cycle. Additionally, considers as random effects the participant variable. The formulation would look something like this: $$diff = 1+lvl+set+stimulus+zyklus+(1|ptcp)$$ 
+
+We wonder. Would multilevel analysis also help us determine or not, a significant difference between congruent and incongruent visuo-haptic stimuli? No base condition considered. To do this, we removed all base condition observations, thus leaving a subset with 553 less observations. The formula applied is the same as before.
+
+
 
 The results from the randome effects show that 16% of the variance in time response is accounted by the difference in participants. The estimator most prominent on impact size is found for level variable $[M=-0.20, Pr<0.001, 97.5\%, CI = [-0.22, -0.17]]$. The second most relevant was the congruent visuo-haptic stimulus $[M=-0.20, Pr<0.001, 97.5\%, CI = [-0.22, -0.17]]$. There were no significant results found for the incongruent visuo-haptic stimulus.
 
 ***From a Behavior stand point, the coherence of the viuso-haptic stimuli notably makes the reaction faster. Nonetheless, the fact that there is not a significant result for the incongruent visuo-haptic stimuli might cast some light on the multisensory integration of ambiguous sources. As observed in the preliminary results section, the significant difference is between no visuo-haptic stimuli and congruent visuo-haptic stimuli. The incongruent case sits between this two. As an intermediate case, where none is the slowest  and congruent is the fastest** 
 
-```{r, echoe=TRUE}
+```{r, include=F,echoe=F}
 ################### Randome Intercept Model for Response Time 
 rndintercepmodel <- lmer(diff~1+(1|ptcp),REML = F,tsvr)
 summary(rndintercepmodel)
